@@ -1,6 +1,12 @@
-lib-cov
-*.seed
+server/node_modules/
+public/node_modules/
+public/.tmp/
+public/dist/
+public/temp/
+public/app/bower_components
+*.DS_Store
 *.log
+*.seed
 *.csv
 *.dat
 *.out

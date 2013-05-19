@@ -41,9 +41,10 @@ define([
 
         post : function(path){
             var post = this.posts.findWhere({ slug : path});
-            this.views.postView = new PostView({model:post || new Post()});
+            this.views.postView = new PostView({model:post || new Post({slug : path})});
             this.views.mainView.unrender();
-            this.views.postView.render(path);
+            this.views.navView.unrender();
+            this.views.postView.render();
             // 404 page
             //console.log('You are in 404 Page. %s', path)
         },

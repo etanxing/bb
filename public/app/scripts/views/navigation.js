@@ -26,6 +26,12 @@ define([
             this.$el.html(_.template(navigation)({
                 info  : this.collection.info()
             }))
+
+            $('.content').after(this.el);
+        },
+
+        unrender : function(){
+            this.$el.detach();
         },
 
         nextResultPage: function (e) {

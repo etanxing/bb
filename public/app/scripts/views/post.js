@@ -8,11 +8,11 @@ define([
     'use strict';
 
     var PostView = Backbone.View.extend({
-        id : 'content',
+        id : 'article',
 
-        render: function(path) {
+        render: function() {
             var self = this;
-            if (this.model) {
+            if (this.model.has('title')) {
                 //Already loaded
                 this.renderPost();
             } else {
@@ -34,7 +34,7 @@ define([
                 post  : this.model.toJSON()
             }))
             
-            $('#primary').html(this.el);
+            $('.content').html(this.el);
         }
     });
 

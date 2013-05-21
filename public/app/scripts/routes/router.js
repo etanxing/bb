@@ -40,22 +40,32 @@ define([
         },
 
         post : function(path){
-            var post = this.posts.findWhere({ slug : path});
-            this.views.postView = new PostView({model:post || new Post({slug : path})});
-            this.views.mainView.unrender();
+            var self = this,
+                transition = new $.Deferred(),
+                post = this.posts.findWhere({ slug : path});
+                
+            this.views.mainView.unrender(transition);
             this.views.navView.unrender();
-            this.views.postView.render();
-            // 404 page
-            //console.log('You are in 404 Page. %s', path)
+            this.views.postView = new PostView({model:post || new Post({slug : path})});
+      
+            transition.done(function () {
+                self.views.postView.render();
+            });
         },
 
-        index: function(){        	
+        index: function(){
             this.pageing(1);
         },
 
         pageing: function (pageid) {
-            this.views.postView.remove();
-            this.posts.goTo(pageid, {silent:false});
+            var self = this,
+                transition = new $.Deferred();
+
+            this.views.postView.unrender(transition);
+            transition.done(function () {
+                self.posts.goTo(pageid, {silent:false});
+                $('html,body').animate({scrollTop: 0 }, 400);
+            });
         }
     });
 

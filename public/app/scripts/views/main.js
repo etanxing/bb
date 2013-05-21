@@ -5,9 +5,8 @@ define([
     'underscore',
     'backbone',
     '../views/listpost',
-    '../views/navigation',
-    'text!../templates/main.html'
-], function ($, _, Backbone, ListPostView, NavigationView, main) {
+    '../views/navigation'
+], function ($, _, Backbone, ListPostView, NavigationView) {
     'use strict';
 
     var MainView = Backbone.View.extend({
@@ -19,11 +18,15 @@ define([
         renderPost: function (post) {
             var view = new ListPostView({model:post});
             $('.content').append(view.render().el);
-            console.log('add collection length: %d', $('.content article').length);
+            view.$el.fadeIn();
         },
 
-        unrender : function () {
-            this.collection.remove(this.collection.models);
+        unrender : function (transition) {
+            var self = this;
+            $('.content article').fadeOut(function () {
+                self.collection.remove(self.collection.models);
+                transition.resolve();
+            });
         }
     });
 

@@ -8,6 +8,8 @@ define([
     'use strict';
 
     var PostView = Backbone.View.extend({
+        className: 'hidden',
+
         id : 'article',
 
         render: function() {
@@ -34,7 +36,16 @@ define([
                 post  : this.model.toJSON()
             }))
             
-            $('.content').html(this.el);
+            $('#primary').append(this.el);
+            this.$el.fadeIn();
+        },
+
+        unrender: function (transition) {
+            var self = this;
+            this.$el.fadeOut(function () {
+                self.remove();
+                transition.resolve();
+            })
         }
     });
 

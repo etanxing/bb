@@ -8,6 +8,8 @@ define([
     'use strict';
 
     var PostView = Backbone.View.extend({
+        className: 'hidden',
+
         tagName : 'article',
 
         events: {
@@ -16,7 +18,7 @@ define([
 
         initialize: function(){
             this.listenTo(this.model, 'change', this.render);
-            this.listenTo(this.model, 'remove', this.unrender);
+            this.listenTo(this.model, 'remove', this.remove);
         },
 
         render: function() {
@@ -25,11 +27,6 @@ define([
             }))
 
             return this;
-        },
-
-        unrender: function() {
-            console.log('remove collection length: %d', $('.content article').length);
-            this.remove();
         },
 
         goentry : function(e){

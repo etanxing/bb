@@ -3,8 +3,9 @@
 define([
     'jquery',
     'backbone',
-    'text!../templates/post.html'
-], function ($, Backbone, post) {
+    'text!../templates/post.html',
+    '../common'
+], function ($, Backbone, post, Common) {
     'use strict';
 
     var PostView = Backbone.View.extend({
@@ -32,6 +33,8 @@ define([
         },
 
         renderPost: function() {
+            Common.status.set(false);
+
             $(this.el).html(_.template(post)({
                 post  : this.model.toJSON()
             }))

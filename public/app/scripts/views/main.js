@@ -5,25 +5,33 @@ define([
     'underscore',
     'backbone',
     '../views/listpost',
-    '../views/navigation'
-], function ($, _, Backbone, ListPostView, NavigationView) {
+    '../views/navigation',
+    '../common'
+], function ($, _, Backbone, ListPostView, NavigationView, Common) {
     'use strict';
 
     var MainView = Backbone.View.extend({
+        className: 'articles',
+
         initialize: function() {
             _.bindAll(this, 'render', 'renderPost');
             this.listenTo(this.collection, 'add', this.renderPost);
+            this.listenTo(this.collection, 'sync', this.render);
+        },
+
+        render : function() {
+            $('.content').html(this.el);
+            Common.status.set(false);
         },
 
         renderPost: function (post) {
             var view = new ListPostView({model:post});
-            $('.content').append(view.render().el);
-            view.$el.fadeIn();
+            this.$el.append(view.render().el);
         },
 
         unrender : function (transition) {
             var self = this;
-            $('.content article').fadeOut(function () {
+            this.$el.fadeOut(function () {
                 self.collection.remove(self.collection.models);
                 transition.resolve();
             });

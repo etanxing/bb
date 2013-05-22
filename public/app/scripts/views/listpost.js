@@ -8,8 +8,6 @@ define([
     'use strict';
 
     var PostView = Backbone.View.extend({
-        className: 'hidden',
-
         tagName : 'article',
 
         events: {

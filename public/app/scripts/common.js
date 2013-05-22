@@ -1,9 +1,10 @@
 /*global define*/
 
 define([
+    'jquery',
     'underscore',
     'backbone',
-], function (_, Backbone) {
+], function ($, _, Backbone) {
     'use strict';
 
     var app = (function () {
@@ -13,12 +14,13 @@ define([
 
         var _options = {
         	loading : function (status, options) {
-        		console.log('default loading.')
+        	   $('body').toggleClass('processing', status.get('isprocessing'));
         	}
         }
 
         var _init = function (options) {
-            _status.on('change:isprocessing', options.loading);
+            var opts = _.defaults(options || {}, _options);
+            _status.on('change:isprocessing', opts.loading);
         };
 
         return {

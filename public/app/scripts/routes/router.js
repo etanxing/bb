@@ -44,7 +44,8 @@ define([
             var self = this,
                 transition = new $.Deferred(),
                 post = this.posts.findWhere({ slug : path});
-                
+            
+            Common.status.set(true);    
             this.views.mainView.unrender(transition);
             this.views.navView.unrender();
             this.views.postView = new PostView({model:post || new Post({slug : path})});
@@ -66,7 +67,6 @@ define([
             this.views.postView.unrender(transition);
             transition.done(function () {
                 self.posts.goTo(pageid, {silent:false});
-                $('html,body').animate({scrollTop: 0 }, 400);
             });
         }
     });

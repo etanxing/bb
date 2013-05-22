@@ -6,9 +6,18 @@ define([
 ], function (_, Backbone) {
     'use strict';
 
-    var Status = Backbone.Model.extend({
+    var app = (function () {
+        var myPrivateVar = 0;
+        var myPrivateMethod = function (someText) {
+            console.log(someText);
+        };
 
-    });
-
-    return Status;
+        return {
+            myPublicVar: "foo",
+            myPublicFunction: function (bar) {
+                myPrivateVar++;
+                myPrivateMethod(bar);
+            }
+        };    
+    })();
 });

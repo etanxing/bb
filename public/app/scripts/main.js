@@ -31,9 +31,15 @@ require.config({
 });
 
 require([
+    'common',
     'routes/router',
     'backbone'
-], function (Router, Backbone) {
+], function (Common, Router, Backbone) {
+    Common.init({
+        loading : function () {
+            console.log('customize loading.');
+        }
+    });
     new Router;       
     Backbone.history.start();  
 });

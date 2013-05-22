@@ -10,8 +10,9 @@ define([
     '../views/post',
     '../views/navigation',
     '../models/post',
-    '../collections/posts'
-], function ($, Backbone, HeaderView, FooterView, AsideView, MainView, PostView, NavigationView, Post, Posts) {
+    '../collections/posts',
+    '../common'
+], function ($, Backbone, HeaderView, FooterView, AsideView, MainView, PostView, NavigationView, Post, Posts, Common) {
     'use strict';
 
     var Router = Backbone.Router.extend({
@@ -61,6 +62,7 @@ define([
             var self = this,
                 transition = new $.Deferred();
 
+            Common.status.set(true);
             this.views.postView.unrender(transition);
             transition.done(function () {
                 self.posts.goTo(pageid, {silent:false});

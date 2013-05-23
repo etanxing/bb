@@ -15,6 +15,9 @@ module.exports = function (app) {
     /***************** Public API START ******************/ 
     var public = require('../app/api/public');
 
+    //Get Default Settings
+    app.get('/api/settings', public.settings);
+
     //Get items by suburb and medicaltype
     app.get('/api/items', public.count, public.items);
 

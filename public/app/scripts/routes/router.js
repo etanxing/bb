@@ -24,7 +24,6 @@ define([
     			footerView : new FooterView(),
     			asideView : new AsideView(),
                 mainView : new MainView({collection : this.posts}),
-                navView : new NavigationView({collection : this.posts}),
                 postView : new PostView()
     		}
 
@@ -47,7 +46,6 @@ define([
             
             Common.status.set(true);    
             this.views.mainView.unrender(transition);
-            this.views.navView.unrender();
             this.views.postView = new PostView({model:post || new Post({slug : path})});
       
             transition.done(function () {
@@ -64,7 +62,13 @@ define([
                 transition = new $.Deferred();
 
             Common.status.set(true);
-            this.views.postView.unrender(transition);
+
+            if (Common.isPostRouter()) {
+                this.views.postView.unrender(transition)
+            } else {
+                this.views.mainView.unrender(transition);
+            }
+
             transition.done(function () {
                 self.posts.goTo(pageid, {silent:false});
             });

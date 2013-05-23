@@ -8,19 +8,31 @@ define([
     'use strict';
 
     var app = (function () {
-        var _status = new Backbone.Model({
-        	isprocessing : false
-        });
+        var _router = '',
+        	_status = new Backbone.Model({
+        		isprocessing : false
+        	}),
+        	_settings = new Backbone.Model();
 
         var _options = {
         	loading : function (status, options) {
         	   $('body').toggleClass('processing', status.get('isprocessing'));
+        	},
+
+        	onload : function (model, response, options) {
+        		console.log('default onload');
         	}
         }
 
-        var _init = function (options) {
+        var _init = function (options) {        	
             var opts = _.defaults(options || {}, _options);
             _status.on('change:isprocessing', opts.loading);
+            _settings.fetch({
+            	url:'http://localhost:7777/api/settings',
+            	success : function(model) {
+            		opts.onload(model);
+            	}
+            });
         };
 
         return {
@@ -36,6 +48,15 @@ define([
 
             init: function (options) {
                 _init(options);
+                this.Settings = _settings;
+            },
+
+            routes : function (router, route, params) {
+            	_router = router;
+            },
+
+            isPostRouter : function () {
+            	return _router === 'post'
             }
         };    
     })();

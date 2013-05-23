@@ -17,17 +17,12 @@ define([
             'click a.nav-previous': 'previousResultPage'
         },
 
-        initialize: function() {
-            _.bindAll(this, 'render');
-            this.listenTo(this.collection, 'sync', this.render);
-        },
-
         render : function(){
             this.$el.html(_.template(navigation)({
                 info  : this.collection.info()
             }))
 
-            $('.content').after(this.el);
+            return this;
         },
 
         unrender : function(){

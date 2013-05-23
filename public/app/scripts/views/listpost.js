@@ -10,6 +10,8 @@ define([
     var PostView = Backbone.View.extend({
         tagName : 'article',
 
+        className : 'listpost',
+
         events: {
             'click .entry-title a'  : 'goentry'
         },

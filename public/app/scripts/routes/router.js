@@ -30,7 +30,13 @@ define([
         	this.views.headerView.render();
     		this.views.footerView.render();
     		this.views.asideView.render();
+
+            this.on('route', this.hashlist);
     	},
+
+        hashlist : function(router){
+            Common.status.set('router', router);
+        },
 
         // Hash maps for routes
         routes : {
@@ -44,7 +50,7 @@ define([
                 transition = new $.Deferred(),
                 post = this.posts.findWhere({ slug : path});
             
-            Common.status.set(true);    
+            Common.status.set('processing', true);    
             this.views.mainView.unrender(transition);
             this.views.postView = new PostView({model:post || new Post({slug : path})});
       
@@ -61,9 +67,9 @@ define([
             var self = this,
                 transition = new $.Deferred();
 
-            Common.status.set(true);
+            Common.status.set('processing', true);
 
-            if (Common.isPostRouter()) {
+            if (Common.status.get('router') == 'post') {
                 this.views.postView.unrender(transition)
             } else {
                 this.views.mainView.unrender(transition);

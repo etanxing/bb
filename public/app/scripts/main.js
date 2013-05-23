@@ -35,12 +35,8 @@ require([
     'routes/router',
     'backbone'
 ], function (Common, Router, Backbone) {
-    Common.init({
-        onload : function (settings) {
-            console.log('customize onload');
-            var router = new Router;
-            router.on('route', Common.routes);
-            Backbone.history.start();
-        }
-    });
+    Common.init();
+
+    var router = new Router;
+    Backbone.history.start();
 });

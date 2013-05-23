@@ -8,15 +8,19 @@ define([
     'use strict';
 
     var app = (function () {
-        var _router = '',
+        var _server = 'http://wbb.ap01.aws.af.cm/',
+            _router = '',
         	_status = new Backbone.Model({
-        		isprocessing : false
+        		processing : false,
+                router : ''
         	}),
         	_settings = new Backbone.Model();
 
         var _options = {
         	loading : function (status, options) {
-        	   $('body').toggleClass('processing', status.get('isprocessing'));
+                $('html,body').animate({scrollTop: 0 }, 400, function() {
+                    $('body').toggleClass('processing', status.get('processing'));
+                });
         	},
 
         	onload : function (model, response, options) {
@@ -26,9 +30,9 @@ define([
 
         var _init = function (options) {        	
             var opts = _.defaults(options || {}, _options);
-            _status.on('change:isprocessing', opts.loading);
+            _status.on('change:processing', opts.loading);
             _settings.fetch({
-            	url:'http://localhost:7777/api/settings',
+            	url: _server + 'api/settings',
             	success : function(model) {
             		opts.onload(model);
             	}
@@ -37,12 +41,12 @@ define([
 
         return {
             status: {
-            	set : function (status) {
-            		_status.set({ isprocessing : status});
+            	set : function (name, value) {
+            		_status.set(name, value);
             	},
 
-            	get : function () {
-            		_status.get('isprocessing');
+            	get : function (name) {
+            		return _status.get(name);
             	}
             },
 
@@ -51,13 +55,7 @@ define([
                 this.Settings = _settings;
             },
 
-            routes : function (router, route, params) {
-            	_router = router;
-            },
-
-            isPostRouter : function () {
-            	return _router === 'post'
-            }
+            server : _server //http://localhost:7777
         };    
     })();
 

@@ -4,8 +4,9 @@ define([
     'underscore',
     'backbone',
     'models/post',
-    'paginator'
-], function (_, Backbone, Post, Paginator) {
+    'paginator',
+    '../common'
+], function (_, Backbone, Post, Paginator, Common) {
     'use strict';
 
     // var Posts = Backbone.Collection.extend({
@@ -18,7 +19,7 @@ define([
 		paginator_core: {
 			type: 'GET',
 			dataType: 'json',
-			url: 'http://localhost:7777/api/items?'
+			url: Common.server + 'api/items?'
 		},
 
 		paginator_ui: {

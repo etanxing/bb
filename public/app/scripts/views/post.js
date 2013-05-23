@@ -33,10 +33,10 @@ define([
         },
 
         renderPost: function() {
-            Common.status.set(false);
+            Common.status.set('processing', false);
 
             $(this.el).html(_.template(post)({
-                post  : this.model.toJSON()
+                post  : this.model.has('post')?this.model.get('post'):this.model.toJSON()
             }))
             
             $('#primary').append(this.el);

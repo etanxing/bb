@@ -22,7 +22,7 @@ define([
 
         render : function() {
             $('.content').html(this.$el);            
-            Common.status.set(false);
+            Common.status.set('processing', false);
             this.$el.fadeIn();
         },
 

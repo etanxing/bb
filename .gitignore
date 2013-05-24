@@ -1,11 +1,13 @@
 server/node_modules/
 server/public/node_modules/
-server/public/app/components/
+server/public/.tmp/
+server/public/dist/
+server/public/app/bower_components/
 public/node_modules/
 public/.tmp/
 public/dist/
 public/temp/
-public/app/bower_components
+public/app/bower_components/
 *.DS_Store
 *.log
 *.seed

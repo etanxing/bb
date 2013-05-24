@@ -31,9 +31,8 @@ require.config({
 });
 
 require([
-    'common',
-    'routes/router',
     'backbone'
-], function (Common, Router, Backbone) {
+], function (Backbone) {
+    Backbone.history.start({pushState: true});
     console.log('arrived.');
 });

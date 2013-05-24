@@ -1,4 +1,6 @@
 server/node_modules/
+server/public/node_modules/
+server/public/app/components/
 public/node_modules/
 public/.tmp/
 public/dist/
@@ -18,3 +20,4 @@ logs
 results
 
 npm-debug.log
+

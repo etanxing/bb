@@ -208,7 +208,7 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+            css: ['<%= yeoman.app %>/bower_components/Flat-UI/css/{,*/}*.css', '<%= yeoman.dist %>/styles/{,*/}*.css'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
             }
@@ -227,8 +227,9 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
+                        '<%= yeoman.app %>/bower_components/Flat-UI/css/{,*/}*.css',
                         '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                        '<%= yeoman.app %>/styles/{,*/}*.css'                    
                     ]
                 }
             }

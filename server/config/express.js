@@ -18,6 +18,8 @@ module.exports = function (app, config) {
         level: 9
     }))
 
+    app.use(express.static(config.root + '/public/app'))
+
     // production only
     app.configure('production', function(){
         //express/mongo session storage

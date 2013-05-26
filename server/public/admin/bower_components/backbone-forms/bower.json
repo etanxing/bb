@@ -1,0 +1,8 @@
+{
+  "name": "backbone-forms",
+  "version": "0.12.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/powmedia/backbone-forms"
+  }
+}

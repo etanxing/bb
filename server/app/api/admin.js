@@ -1,7 +1,75 @@
-var mongojs = require('mongojs'),
+var Step = require('step'),
+    mongojs = require('mongojs'),
     ObjectId  = mongojs.ObjectId,
     config = require('../../config/config').config().db,
     db = mongojs(config.uri, config.collections);
+
+//Check User
+exports.usercheck = function (req, res, next) {
+    console.log('user check');
+    next();
+};
+
+exports.data = function (req, res, next) {
+    Step(
+        function getData() {
+            db.posts.find().count(this.parallel());
+            db.tags.find().count(this.parallel());
+            db.options.find().count(this.parallel());
+        },
+
+        function getCounters (err, posts, tags, options) {
+            if (err) return next(err);
+            res.json([
+                { name : 'Posts', count : posts } ,
+                { name : 'Tags', count : tags } ,
+                { name : 'Settings', count : options } 
+            ])
+        }
+    )
+}
+
+//Get all posts
+exports.posts = function (req, res, next) {
+    db.posts.find({}, { author: 1, 
+                        date: 1, 
+                        modified: 1, 
+                        date_gmt: 1, 
+                        modified_gmt: 1,
+                        title: 1,
+                        status: 1,
+                        slug: 1,
+                        password: 1,
+                        type: 1,
+                        tags: 1}).sort({ date : -1 }, function (err, posts) {
+        if (err) return next(err);
+        res.json(posts);
+    })
+};
+
+//Get a post
+exports.post = function (req, res, next) {
+    db.posts.findOne({ _id : new ObjectId(req.params.id) }, function(err, post) {
+        if (err) return next(err);
+        res.json(post);
+    })
+}
+
+//Get all tags
+exports.settings = function (req, res, next) {
+    db.options.find().sort({ name : 1 }, function (err, options) {
+        if (err) return next(err);
+        res.json(options);
+    })
+}
+
+//Get all tags
+exports.tags = function (req, res, next) {
+    db.tags.find().sort({ taxonomy : 1 }, function (err, tags) {
+        if (err) return next(err);
+        res.json(tags);
+    })
+}
 
 //Get items by name and medicaltype
 exports.collection = function (req, res, next) {

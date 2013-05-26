@@ -2,7 +2,7 @@ server/node_modules/
 server/public/node_modules/
 server/public/.tmp/
 server/public/dist/
-server/public/app/bower_components/
+server/public/admin/bower_components/
 public/node_modules/
 public/.tmp/
 public/dist/

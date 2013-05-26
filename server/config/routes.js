@@ -30,6 +30,21 @@ module.exports = function (app) {
     /***************** Admin API START ******************/
     var admin = require('../app/api/admin');
 
+    //Get Counters
+    app.get('/admin/api/data', admin.usercheck, admin.data);
+
+    //Get Posts
+    app.get('/admin/api/posts', admin.usercheck, admin.posts);
+
+    //Get a Post
+    app.get('/admin/api/post/:id?', admin.usercheck, admin.post);
+
+    //Get Settings
+    app.get('/admin/api/settings', admin.usercheck, admin.settings);
+
+    //Get Tags
+    app.get('/admin/api/tags', admin.usercheck, admin.tags);
+
     //Get items by name and medicaltype
     app.get('/api/collection', admin.collection);
 
